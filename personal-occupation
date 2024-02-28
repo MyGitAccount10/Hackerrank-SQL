@@ -1,0 +1,11 @@
+Select NAME+ "("+SUBSTRING(OCCUPATION,1,1)+")" [OCCP] from OCCUPATIONS
+order by name
+select case when OC='(P)' then "There are a total of "+cast(say as varchar)+" professors."
+when OC='(A)' then "There are a total of "+cast(say as varchar)+" actors."
+when OC='(S)' then "There are a total of "+cast(say as varchar)+" singers."
+when OC='(D)' then "There are a total of "+cast(say as varchar)+" doctors."
+end from (
+Select "("+SUBSTRING(OCCUPATION,1,1)+")" [OC], COUNT(*) [SAY] 
+    from OCCUPATIONS
+GROUP BY "("+SUBSTRING(OCCUPATION,1,1)+")" ) kl order by say
+
