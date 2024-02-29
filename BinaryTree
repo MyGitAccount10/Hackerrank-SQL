@@ -1,0 +1,12 @@
+WITH node_type (N,node)
+AS (select N, 'Leaf' from BST
+where N not in (select cast(Isnull(P,0) as int) from BST)
+union all
+select N, 'Root' from BST
+where P is null
+union all
+select N, 'Inner' from BST
+where N  in (select cast(Isnull(P,0) as int) from BST where cast(Isnull(P,0) as int)!=0) and N!=15) 
+
+
+select * from node_type order by N
