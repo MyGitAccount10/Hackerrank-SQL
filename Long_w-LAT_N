@@ -1,0 +1,2 @@
+select cast(round(LONG_W,4) as decimal(10,4)) from STATION where Lat_N in ( 
+select max(LAT_N) from Station where LAT_N<137.2345)
