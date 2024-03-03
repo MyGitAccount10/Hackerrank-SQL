@@ -1,0 +1,14 @@
+select sm,count(emp_id) from (
+select max(salary*months) [sm],count(employee_id) [emp_id]
+      from Employee 
+     group by Employee.employee_id
+having max(salary*months) = (
+
+select max(Total_earning)
+from (
+    select employee_id,max(salary*months) [Total_earning] 
+      from Employee 
+group by employee_id
+) f)
+    ) as d
+group by sm
