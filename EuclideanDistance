@@ -1,0 +1,3 @@
+select cast(round(sqrt(power(c-a,2)+power(d-b,2)),4) as decimal(10,4)) from (
+
+select min(LAT_N) [a],min(LONG_W) [b],max(LAT_N)[c],max(LONG_W) [d] from Station) g
