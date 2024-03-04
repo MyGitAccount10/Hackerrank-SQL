@@ -1,0 +1,5 @@
+select name,grade,marks from Students s inner join Grades g on s.marks between g.min_mark and g.max_mark where grade>=8
+-- order by grade desc,name,marks
+union all
+ select name = null ,grade,marks from Students s inner join Grades g on s.marks between g.min_mark and g.max_mark where grade<8
+ order by grade desc,name ,marks
