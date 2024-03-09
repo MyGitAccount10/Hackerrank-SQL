@@ -1,0 +1,14 @@
+with temp (hacker,name,cnt,num) as (select * from (select h.hacker_id,name,count(challenge_id) [cnt],
+row_number() over(partition by count(challenge_id) order by count(challenge_id))
+[num]
+from Hackers h inner join Challenges c with (nolock) on h.hacker_id=c.hacker_id
+group by h.hacker_id,name
+) d)
+
+select hacker,name,cnt from temp where cnt in (
+select cnt from temp 
+group by cnt
+having max(num)=1 ) or cnt in (select max(cnt) from temp )
+order by cnt desc,hacker
+
+
