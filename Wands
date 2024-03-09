@@ -1,0 +1,7 @@
+select id,age,min_,power from (select 
+id, age,  min(coins_needed) [min_],power,row_number() over(partition by age,power order by age,power,min(coins_needed)) [num]
+ from Wands w inner join Wands_Property wp with (nolock) on
+w.code=wp.code where is_evil=0
+group by id, age, power
+) as d where num=1
+order by power desc,age desc
