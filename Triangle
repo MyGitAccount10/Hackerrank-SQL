@@ -1,0 +1,8 @@
+declare @p as int
+set @p=20
+
+while @p>=1
+begin
+print replicate("* ",@p)
+set @p=@p-1
+end
