@@ -1,0 +1,12 @@
+select name+"("+substring(occupation,1,1)+")" from occupations order by name
+
+select 
+case when occupation="Doctor" then "There are a total of "+
+cast(count(name) as varchar(90))+" "+lower(occupation) +"s." 
+when occupation="Singer" then "There are a total of "+
+cast(count(name) as varchar(90))+" "+lower(occupation)+"s."
+when occupation="Actor" then "There are a total of "+
+cast(count(name) as varchar(90))+" "+lower(occupation)+"s."
+when occupation="Professor" then "There are a total of "+
+cast(count(name) as varchar(90))+" "+lower(occupation)+"s." end
+from occupations group by occupation order by count(name),occupation
