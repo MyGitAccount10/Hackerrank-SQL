@@ -1,0 +1,6 @@
+select (select max(Max_) from (select name,max(salary*months) [Max_] from employee group by name) as d),
+(select count(ms) from(
+select max(salary*months) [ms] from employee 
+group by name
+having max(salary*months)=(select max(Max_) from (select name,max(salary*months) [Max_] from employee group by name) as d)) as df)
+
