@@ -1,0 +1,9 @@
+select s.name from students s
+inner join friends f with (nolock)
+on s.id=f.id inner join students 
+ss with(nolock) on 
+f.friend_id=ss.id
+inner join packages p with (nolock) on 
+p.id=f.id inner join packages pp with (nolock) on pp.id=f.friend_id
+where p.salary<pp.salary
+order by pp.salary
