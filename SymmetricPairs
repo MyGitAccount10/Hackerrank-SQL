@@ -1,0 +1,31 @@
+declare @table table (a int, b int, n int);
+declare @i int =1;
+declare @table2 table (l int, m int, k int)
+insert into @table 
+select X,Y, row_number() over(order by (select null)) as num from functions
+declare @s int=(select count(*) from @table)
+
+while @i<=@s
+begin 
+declare @x int=(select a from @table where n=@i )
+declare @y int=(select b from @table where n=@i )
+declare @j int=@i+1
+while @j<=@s
+begin 
+declare @f int =(select a from @table where n=@j )
+declare @g int =(select b from @table where n=@j )
+if  @x=@g and @y=@f 
+begin
+insert into @table2 values (@y,@x,1)
+/*select a,b,n from @table 
+where n=@j and @y>=@x and n not in (select  k from @table2)
+*/
+end
+set @j+=1
+end
+set @i+=1
+--print @x 
+end
+select * from (
+select l,m from @table2 where l<=m Union all
+select m,l from @table2 where m<l) as df order by l
