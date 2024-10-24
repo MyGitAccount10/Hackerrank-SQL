@@ -1,0 +1,30 @@
+declare @table table (a date, b date, n int) 
+insert into @table 
+select start_date,end_date,row_number() over(order by start_date) as num from projects 
+declare @resultTable table (f date, h date, ct int)
+
+declare @cnt int=(select count(*) from @table)
+declare @i int=2;
+declare @c int=0;
+
+while @i<=@cnt
+begin
+declare @date1 date=(select b from @table where n=@i-1)
+declare @date2 date=(select b from @table where n=@i)
+set @c+=1;
+declare @k int=(select DATEDIFF(day,@date1,@date2) )
+if @k>1 
+begin
+insert into @resultTable (f,h , ct) values ((select DATEADD(d,-@c,@date1)),@date1, @c)
+if @i=@cnt
+begin
+insert into @resultTable (f, h, ct) values ((select DATEADD(d,-1,@date2)), @date2,1)
+end
+set @c=0;
+end
+set @i+=1
+end
+
+/*select * from projects 
+order by start_date*/
+select f,h from @resultTable order by ct, f
