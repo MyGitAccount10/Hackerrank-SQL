@@ -1,0 +1,10 @@
+select cs.contest_id, cs.hacker_id, cs.name ,sum(ts),sum(tas), sum(tv),sum(tuv)
+from Contests cs inner join Colleges hk with (nolock) on cs.contest_id=hk.contest_id 
+inner join Challenges ch with (nolock) on hk.college_id=ch.college_id 
+left join (select challenge_id,  sum(total_views) tv, sum(total_unique_views) tuv from view_stats group by challenge_id) as g on g.challenge_id=ch.challenge_id 
+left join (select challenge_id, sum(total_submissions) as ts, sum(total_accepted_submissions) as tas from submission_stats group by challenge_id ) as jk
+on jk.challenge_id = ch.challenge_id 
+
+group by cs.contest_id, cs.hacker_id, cs.name 
+order by cs.contest_id 
+            
