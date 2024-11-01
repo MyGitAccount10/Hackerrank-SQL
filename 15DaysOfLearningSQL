@@ -1,0 +1,10 @@
+select submission_date dt,s.hacker_id hd, count(s.hacker_id) cn,h.name from submissions s inner join Hackers h on h.hacker_id =s.hacker_id 
+group by submission_date, s.hacker_id,h.name 
+
+
+declare @qw table (dc date, kl int)
+
+insert into @qw
+select t.d,min(o) from @table t inner join @t4 o on t.d=o.b and t.c=o.cv group by t.d order by d
+
+select dc,k,kl,name from @qw q inner join @t3 t on q.dc=t.w inner join @t4 tt on tt.o=q.kl and tt.b=q.dc
